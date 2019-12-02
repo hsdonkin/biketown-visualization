@@ -11,10 +11,10 @@ import ReactDOM from 'react-dom';
 // hot reload for development
 import { AppContainer } from 'react-hot-loader';
 
-import App from './App';
-
 import './style.scss';
-import 'leaflet/dist/leaflet.css';
+// import 'leaflet/dist/leaflet.css';
+
+import App from './App';
 
 const root = document.getElementById('root');
 
