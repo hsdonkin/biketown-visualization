@@ -11,7 +11,9 @@ import {
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import L from 'leaflet';
-const bikeMarker = require('./../assets/bicycle.svg');
+
+// components
+import BikeMarker from './BikeMarker';
 
 // api calls
 const axios = require('axios');
@@ -77,24 +79,10 @@ class MapContainer extends React.Component {
 
     let freeBikeMarkers;
     if (this.state.loading === false && this.state.error === false) {
-      console.log(this.state.freeBikeStatus);
       const bikeData = this.state.freeBikeStatus.data.bikes;
       freeBikeMarkers = bikeData.map(bike => {
-        return (
-          <Marker
-            position={[bike.lat, bike.lon]}
-            icon={L.icon({
-              iconUrl: bikeMarker,
-              iconSize: [30, 30]
-            })}
-          >
-            <Tooltip className={'bike-marker-tooltip'}>
-              <span>{bike.name}</span>
-            </Tooltip>
-          </Marker>
-        );
+        return <BikeMarker bike={bike} />;
       });
-      console.log(freeBikeMarkers);
     }
 
     return (
