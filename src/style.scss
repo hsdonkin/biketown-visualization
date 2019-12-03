@@ -1,11 +1,11 @@
-// #mapid {
-//   height: 500px;
-//   width: 500px;
-//   border: 1px solid whitesmoke;
-// }
-
 body {
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+h1 {
+  float: right;
+  margin-right: 1rem;
 }
 
 // styles for marker clusters
@@ -31,32 +31,7 @@ body {
   opacity: 1 !important;
 }
 
-.markerClusterMedium {
-  border-radius: 40px;
-  font-size: 0.6vw;
-  color: #fff;
-  font-weight: 900;
-  font-family: Open Sans;
-  text-transform: uppercase;
-}
-.markerClusterLarge {
-  border-radius: 70px;
-  font-size: 0.6vw;
-  color: #fff;
-  font-weight: 900;
-  font-family: Open Sans;
-  text-transform: uppercase;
-}
-.markerClusterLargeXL {
-  border-radius: 70px;
-  font-size: 0.6vw;
-  color: #fff;
-  font-weight: 900;
-  font-family: Open Sans;
-  text-transform: uppercase;
-}
-.markerClusterLabel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.bike-marker-tooltip {
+  background-color: rgba(252, 76, 2, 1);
+  color: white;
 }
