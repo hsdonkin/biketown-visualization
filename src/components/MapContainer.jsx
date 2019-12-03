@@ -1,7 +1,14 @@
 import React from 'react';
 
 // map library
-import { Map, Marker, Popup, Polyline, TileLayer } from 'react-leaflet';
+import {
+  Map,
+  Marker,
+  Popup,
+  Polyline,
+  TileLayer,
+  Tooltip
+} from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import L from 'leaflet';
 const bikeMarker = require('./../assets/bicycle.svg');
@@ -43,7 +50,11 @@ class MapContainer extends React.Component {
               iconUrl: bikeMarker,
               iconSize: [30, 30]
             })}
-          />
+          >
+            <Tooltip>
+              <span className={'bike-marker-tooltip'}>{bike.name}</span>
+            </Tooltip>
+          </Marker>
         );
       });
       console.log(freeBikeMarkers);
