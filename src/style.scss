@@ -3,3 +3,60 @@
 //   width: 500px;
 //   border: 1px solid whitesmoke;
 // }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+// styles for marker clusters
+.marker-cluster span {
+  color: white;
+  font-weight: 500;
+  opacity: 1 !important;
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.medium-cluster-large {
+  background-color: rgba(252, 76, 2, 0.6) !important;
+
+  //   box-shadow: 0 0 5px 10px #fc4c02 !important;
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(252, 76, 2, 1) !important;
+  //   box-shadow: 0 0 5px 10px #fc4c02 !important;
+  opacity: 1 !important;
+}
+
+.markerClusterMedium {
+  border-radius: 40px;
+  font-size: 0.6vw;
+  color: #fff;
+  font-weight: 900;
+  font-family: Open Sans;
+  text-transform: uppercase;
+}
+.markerClusterLarge {
+  border-radius: 70px;
+  font-size: 0.6vw;
+  color: #fff;
+  font-weight: 900;
+  font-family: Open Sans;
+  text-transform: uppercase;
+}
+.markerClusterLargeXL {
+  border-radius: 70px;
+  font-size: 0.6vw;
+  color: #fff;
+  font-weight: 900;
+  font-family: Open Sans;
+  text-transform: uppercase;
+}
+.markerClusterLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

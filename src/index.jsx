@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom';
 // hot reload for development
 import { AppContainer } from 'react-hot-loader';
 
+require('react-leaflet-markercluster/dist/styles.min.css');
 import './style.scss';
 // import 'leaflet/dist/leaflet.css';
 
