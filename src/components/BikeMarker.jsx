@@ -14,6 +14,7 @@ const BikeMarker = props => {
 
   return (
     <Marker
+      key={bike.id}
       position={[bike.lat, bike.lon]}
       icon={L.icon({
         iconUrl: bikeIcon,
