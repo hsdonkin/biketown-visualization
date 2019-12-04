@@ -18,9 +18,14 @@ import L from 'leaflet';
 import BikeMarker from './BikeMarker';
 import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
+import StationMarker from './StationMarker';
 
 // api calls
-const { fetchBikeStatus, fetchStationStatus } = require('./../util');
+const {
+  fetchBikeStatus,
+  fetchStationInformation,
+  fetchStationStatus
+} = require('./../util');
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -32,7 +37,8 @@ class MapContainer extends React.Component {
       stationStatus: [],
       currentPosition: null,
       serviceArea,
-      windowSize: { height: 600, width: 1200 }
+      windowSize: { height: 600, width: 1200 },
+      zoomLevel: 13
     };
   }
 
@@ -60,14 +66,16 @@ class MapContainer extends React.Component {
       });
     }
 
-    Promise.all([fetchBikeStatus, fetchStationStatus])
+    Promise.all([fetchBikeStatus, fetchStationInformation, fetchStationStatus])
       .then(responses => {
         const freeBikeStatus = responses[0].data;
-        const stationStatus = responses[1].data;
+        const stationInformation = responses[1].data;
+        const stationStatus = responses[2].data;
         this.setState({
           loading: false,
-          freeBikeStatus: freeBikeStatus,
-          stationStatus: stationStatus
+          freeBikeStatus,
+          stationInformation,
+          stationStatus
         });
         console.log(this.state);
       })
@@ -89,10 +97,15 @@ class MapContainer extends React.Component {
     };
 
     let freeBikeMarkers;
+    let stationMarkers;
     if (this.state.loading === false && this.state.error === false) {
       const bikeData = this.state.freeBikeStatus.data.bikes;
+      const stationData = this.state.stationInformation.data.stations;
       freeBikeMarkers = bikeData.map(bike => {
         return <BikeMarker bike={bike} key={bike.id} />;
+      });
+      stationMarkers = stationData.map(station => {
+        return <StationMarker station={station} />;
       });
     }
 
@@ -116,6 +129,7 @@ class MapContainer extends React.Component {
           height: this.state.windowSize.height - 75,
           width: this.state.windowSize.width
         }}
+        ref={ref => (this.map = ref)}
       >
         <TileLayer
           url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
@@ -124,6 +138,7 @@ class MapContainer extends React.Component {
         <ServiceArea
           coordinates={this.state.serviceArea.polygon.coordinates[0]}
         />
+        {stationMarkers}
         <MarkerClusterGroup
           spiderLegPolylineOptions={{
             weight: 0,
@@ -136,6 +151,7 @@ class MapContainer extends React.Component {
         >
           {freeBikeMarkers}
         </MarkerClusterGroup>
+
         {userPositionMarker}
       </Map>
     );
