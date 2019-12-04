@@ -21,7 +21,7 @@ const BikeMarker = props => {
         iconSize: [30, 30]
       })}
     >
-      <Tooltip className={'bike-marker-tooltip'}>
+      <Tooltip className={'marker-tooltip'}>
         <span>{bike.name}</span>
       </Tooltip>
     </Marker>

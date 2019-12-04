@@ -34,7 +34,13 @@ h1 {
   opacity: 1 !important;
 }
 
-.bike-marker-tooltip {
+.marker-tooltip {
   background-color: rgba(252, 76, 2, 1);
   color: white;
+}
+
+.marker-tooltip span {
+  display: inline;
+  max-width: 100px;
+  word-wrap: break-word;
 }

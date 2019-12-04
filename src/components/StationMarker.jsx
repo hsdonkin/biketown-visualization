@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker } from 'react-leaflet';
+import { Marker, Tooltip } from 'react-leaflet';
 const triangleIcon = require('./../assets/triangle.svg');
 
 class StationMarker extends React.Component {
@@ -20,7 +20,11 @@ class StationMarker extends React.Component {
           iconUrl: triangleIcon,
           iconSize: [20, 20]
         })}
-      />
+      >
+        <Tooltip className={'marker-tooltip'}>
+          <span>{station.name}</span>
+        </Tooltip>
+      </Marker>
     );
   }
 }
