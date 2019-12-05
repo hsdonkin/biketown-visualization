@@ -1,15 +1,16 @@
 const axios = require('axios');
 
 const fetchBikeStatus = axios({
-  url: `http://biketownpdx.socialbicycles.com/opendata/free_bike_status.json`
+  url: `https://biketownpdx.socialbicycles.com/opendata/free_bike_status.json`
 });
 
 const fetchStationStatus = axios({
-  url: 'http://biketownpdx.socialbicycles.com/opendata/station_status.json'
+  url: 'https://biketownpdx.socialbicycles.com/opendata/station_status.json'
 });
 
 const fetchStationInformation = axios({
-  url: 'http://biketownpdx.socialbicycles.com/opendata/station_information.json'
+  url:
+    'https://biketownpdx.socialbicycles.com/opendata/station_information.json'
 });
 
 // const fetchServiceArea = axios({
