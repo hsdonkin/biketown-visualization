@@ -1,4 +1,7 @@
 require('newrelic');
+const nodeExternals = require('@newrelic/webpack-plugin/lib/externals');
+const NewrelicWebpackPlugin = require('@newrelic/webpack-plugin/lib/NewrelicWebpackPlugin');
+
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
@@ -66,10 +69,14 @@ module.exports = {
     ? [
         HTMLWebpackPluginConfig,
         new webpack.HotModuleReplacementPlugin(),
-        new dotenv()
+        new dotenv(),
+        new NewrelicWebpackPlugin()
       ]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig, new dotenv()],
-  externals: {
-    newrelic: true
-  }
+    : [
+        HTMLWebpackPluginConfig,
+        DefinePluginConfig,
+        new dotenv(),
+        new NewrelicWebpackPlugin()
+      ],
+  externals: [nodeExternals()]
 };
