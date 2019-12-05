@@ -9,7 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['Biketown Map'],
+  app_name: ['Biketown Map Heroku'],
   /**
    * Your New Relic license key.
    */
