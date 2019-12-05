@@ -1,4 +1,4 @@
-require('newrelic');
+const newrelic = require('newrelic');
 
 const path = require('path');
 const webpack = require('webpack');
@@ -27,6 +27,9 @@ module.exports = {
       'Access-Control-Allow-Origin': '*'
     },
     historyApiFallback: true
+  },
+  externals: {
+    newrelic: 'newrelic'
   },
   entry: [
     '@babel/polyfill',
