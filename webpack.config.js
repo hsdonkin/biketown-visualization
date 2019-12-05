@@ -68,5 +68,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new dotenv()
       ]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig, new dotenv()]
+    : [HTMLWebpackPluginConfig, DefinePluginConfig, new dotenv()],
+  externals: {
+    newrelic: true
+  }
 };
