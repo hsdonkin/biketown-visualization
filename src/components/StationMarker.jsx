@@ -20,6 +20,7 @@ class StationMarker extends React.Component {
           iconUrl: triangleIcon,
           iconSize: [20, 20]
         })}
+        pane={'shadowPane'}
       >
         <Tooltip className={'marker-tooltip'}>
           <span>{station.name}</span>

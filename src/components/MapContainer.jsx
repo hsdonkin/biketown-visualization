@@ -16,6 +16,7 @@ import L from 'leaflet';
 
 // components
 import BikeMarker from './BikeMarker';
+import SpecialBikeMarker from './SpecialBikeMarker';
 import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
@@ -84,7 +85,7 @@ class MapContainer extends React.Component {
 
   render() {
     // default map position
-    const position = [45.51, -122.66];
+    const position = [45.53, -122.66];
 
     // handle window resize
     window.onresize = e => {
@@ -102,7 +103,12 @@ class MapContainer extends React.Component {
       const bikeData = this.state.freeBikeStatus.data.bikes;
       const stationData = this.state.stationInformation.data.stations;
       freeBikeMarkers = bikeData.map(bike => {
-        return <BikeMarker bike={bike} key={bike.id} />;
+        // find bikes with unique names
+        if (bike.name.toUpperCase().replace('BIKETOWN', '').length > 7) {
+          return <SpecialBikeMarker bike={bike} key={bike.id} />;
+        } else {
+          return <BikeMarker bike={bike} key={bike.id} />;
+        }
       });
       stationMarkers = stationData.map(station => {
         return <StationMarker station={station} />;
@@ -145,6 +151,7 @@ class MapContainer extends React.Component {
             color: '#222',
             opacity: 0
           }}
+          pane={'markerPane'}
           polygonOptions={{ weight: 0, opacity: 0, fill: false }}
           disableClusteringAtZoom={16}
           zoomToBoundsAtClick={false}

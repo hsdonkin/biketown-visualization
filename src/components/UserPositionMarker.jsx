@@ -30,7 +30,7 @@ class UserPositionMarker extends React.Component {
         opacity={0.5}
         fillColor={'#FC4C02'}
         fillOpacity={1}
-        overlayPane={800}
+        pane={'markerPane'}
       />
     );
   }

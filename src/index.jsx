@@ -5,6 +5,14 @@
   eslint has no way to tell that and outputs an error
 */
 
+// global.newrelic = require('newrelic'); // Expose the agent in the global scope
+// require('./bundle.js'); // Load the output of the webpack build
+// const webpackDevServer = require('webpack-dev-server');
+// newrelic.instrumentLoadedModule(
+//   'webpack-dev-server', // the module's name, as a string
+//   webpackDevServer // the module instance
+// );
+
 // react dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';

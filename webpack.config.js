@@ -1,5 +1,3 @@
-require('newrelic');
-
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
@@ -27,6 +25,9 @@ module.exports = {
       'Access-Control-Allow-Origin': '*'
     },
     historyApiFallback: true
+  },
+  externals: {
+    newrelic: 'newrelic'
   },
   entry: [
     '@babel/polyfill',
