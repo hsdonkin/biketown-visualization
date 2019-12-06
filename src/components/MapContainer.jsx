@@ -84,7 +84,7 @@ class MapContainer extends React.Component {
 
   render() {
     // default map position
-    const position = [45.51, -122.66];
+    const position = [45.53, -122.66];
 
     // handle window resize
     window.onresize = e => {
