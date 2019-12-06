@@ -16,6 +16,7 @@ import L from 'leaflet';
 
 // components
 import BikeMarker from './BikeMarker';
+import SpecialBikeMarker from './SpecialBikeMarker';
 import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
@@ -102,7 +103,12 @@ class MapContainer extends React.Component {
       const bikeData = this.state.freeBikeStatus.data.bikes;
       const stationData = this.state.stationInformation.data.stations;
       freeBikeMarkers = bikeData.map(bike => {
-        return <BikeMarker bike={bike} key={bike.id} />;
+        // find bikes with unique names
+        if (bike.name.toUpperCase().replace('BIKETOWN', '').length > 7) {
+          return <SpecialBikeMarker bike={bike} key={bike.id} />;
+        } else {
+          return <BikeMarker bike={bike} key={bike.id} />;
+        }
       });
       stationMarkers = stationData.map(station => {
         return <StationMarker station={station} />;

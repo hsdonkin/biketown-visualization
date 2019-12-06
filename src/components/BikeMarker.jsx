@@ -18,10 +18,16 @@ const BikeMarker = props => {
       position={[bike.lat, bike.lon]}
       icon={L.icon({
         iconUrl: bikeIcon,
-        iconSize: [30, 30]
+        iconSize: [39, 39]
       })}
     >
-      <Tooltip className={'marker-tooltip'}>
+      <Tooltip
+        className={'marker-tooltip'}
+        offset={L.point({
+          x: 0,
+          y: -10
+        })}
+      >
         <span>{bike.name}</span>
       </Tooltip>
     </Marker>
