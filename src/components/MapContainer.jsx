@@ -145,6 +145,7 @@ class MapContainer extends React.Component {
             color: '#222',
             opacity: 0
           }}
+          pane={'markerPane'}
           polygonOptions={{ weight: 0, opacity: 0, fill: false }}
           disableClusteringAtZoom={16}
           zoomToBoundsAtClick={false}
