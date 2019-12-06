@@ -18,7 +18,7 @@ const BikeMarker = props => {
       position={[bike.lat, bike.lon]}
       icon={L.icon({
         iconUrl: bikeIcon,
-        iconSize: [39, 39]
+        iconSize: [50, 50]
       })}
     >
       <Tooltip
