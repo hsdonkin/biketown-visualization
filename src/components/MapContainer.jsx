@@ -1,6 +1,6 @@
 import React from 'react';
 
-const { serviceArea } = require('./../data').default;
+const { serviceArea, specialAreas } = require('./../data').default;
 
 // map library
 import {
@@ -20,6 +20,7 @@ import SpecialBikeMarker from './SpecialBikeMarker';
 import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
+import SpecialArea from './SpecialArea';
 
 // api calls
 const {
@@ -38,12 +39,14 @@ class MapContainer extends React.Component {
       stationStatus: [],
       currentPosition: null,
       serviceArea,
+      specialAreas,
       windowSize: { height: 600, width: 1200 },
       zoomLevel: 13
     };
   }
 
-  componentDidMount = () => {
+  updateStateFromApi = () => {
+    console.log('updating state from API');
     // get current location if possible
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
@@ -53,19 +56,6 @@ class MapContainer extends React.Component {
         }
       });
     });
-
-    // find out what height / width to set the map to
-    if (
-      this.state.windowSize.height != window.innerHeight ||
-      this.state.windowSize.width != window.innerWidth
-    ) {
-      this.setState({
-        windowSize: {
-          height: window.innerHeight,
-          width: window.innerWidth
-        }
-      });
-    }
 
     Promise.all([fetchBikeStatus, fetchStationInformation, fetchStationStatus])
       .then(responses => {
@@ -81,6 +71,36 @@ class MapContainer extends React.Component {
         console.log(this.state);
       })
       .catch(err => this.setState({ loading: false, error: true }));
+  };
+
+  componentDidMount = () => {
+    /* 
+        find out what height / width to set the map to
+        this is because the canvas element needs a defined height / width
+        before the library runs 
+    */
+    if (
+      this.state.windowSize.height != window.innerHeight ||
+      this.state.windowSize.width != window.innerWidth
+    ) {
+      this.setState({
+        windowSize: {
+          height: window.innerHeight,
+          width: window.innerWidth
+        }
+      });
+    }
+
+    // update state on initial load
+    this.updateStateFromApi();
+    // update the UI once every minute
+    this.apiTimer = setInterval(() => {
+      this.updateStateFromApi();
+    }, 60000);
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.apiTimer);
   };
 
   render() {
@@ -115,6 +135,10 @@ class MapContainer extends React.Component {
       });
     }
 
+    const specialAreas = this.state.specialAreas.map(area => {
+      return <SpecialArea area={area} />;
+    });
+
     let userPositionMarker;
     if (
       this.state.currentPosition != null ||
@@ -144,6 +168,7 @@ class MapContainer extends React.Component {
         <ServiceArea
           coordinates={this.state.serviceArea.polygon.coordinates[0]}
         />
+        {specialAreas}
         {stationMarkers}
         <MarkerClusterGroup
           spiderLegPolylineOptions={{
