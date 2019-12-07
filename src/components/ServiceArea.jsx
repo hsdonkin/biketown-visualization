@@ -1,5 +1,5 @@
 import React from 'react';
-import { Polygon } from 'react-leaflet';
+import { Polygon, Polyline } from 'react-leaflet';
 
 const ServiceArea = props => {
   let coordinates = props.coordinates;

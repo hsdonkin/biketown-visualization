@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Polygon, Tooltip } from 'react-leaflet';
+import { Polygon, Polyline, Tooltip } from 'react-leaflet';
 
 const SpecialArea = props => {
   let { area } = props;
@@ -15,7 +15,7 @@ const SpecialArea = props => {
     <Polygon
       positions={area.polygon.coordinates}
       stroke={true}
-      color={'#FC4C02'}
+      color={props.color}
       fill={false}
       opacity={0.8}
     >
