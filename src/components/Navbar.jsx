@@ -5,10 +5,12 @@ const Navbar = () => {
   return (
     <nav className={'navbar'}>
       <span>
-        <h1>
-          BIKETOWN
-          <img className={'swoosh-logo'} src={swoosh} alt="Swoosh" />
-        </h1>
+        <a href="https://www.biketownpdx.com/">
+          <h1>
+            BIKETOWN
+            <img className={'swoosh-logo'} src={swoosh} alt="Swoosh" />
+          </h1>
+        </a>
       </span>
     </nav>
   );
