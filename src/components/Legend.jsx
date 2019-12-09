@@ -81,11 +81,11 @@ class Legend extends React.Component {
       );
     } else {
       return (
-        <div className="legend-collapsed">
-          <span
-            className="legend-collapsed-icon"
-            onClick={() => this.setState({ showLegend: true })}
-          ></span>
+        <div
+          className="legend-collapsed"
+          onClick={() => this.setState({ showLegend: true })}
+        >
+          <span className="legend-collapsed-icon"></span>
         </div>
       );
     }

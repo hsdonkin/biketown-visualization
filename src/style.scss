@@ -115,6 +115,12 @@ body {
   border-radius: 5px;
   text-align: center;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.legend-collapsed:hover {
+  background-color: rgba(80, 80, 80, 0.8);
+  cursor: pointer;
 }
 
 .legend-collapsed-icon {
@@ -128,7 +134,7 @@ body {
   cursor: pointer;
 }
 
-.legend-collapsed-icon:hover {
+.legend-collapsed:hover .legend-collapsed-icon {
   border-bottom: 3px solid white;
   border-left: 3px solid white;
   cursor: pointer;
