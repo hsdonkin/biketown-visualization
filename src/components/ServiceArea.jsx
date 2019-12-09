@@ -13,7 +13,6 @@ const ServiceArea = props => {
       color={'#FC4C02'}
       fill={false}
       opacity={0.8}
-      pane={'markerPane'}
     />
   );
 };
