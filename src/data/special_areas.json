@@ -1,7 +1,7 @@
 [
   {
     "id": 245,
-    "name": "NE Alberta Sunday Parkways 2018",
+    "name": "Sunday Parkways - NE Alberta 2018",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -28,7 +28,7 @@
   },
   {
     "id": 70,
-    "name": "Sunday Parkways NE ",
+    "name": "Sunday Parkways - NE",
     "network_id": 92,
     "void_fees": true,
     "show_on_map": false,
@@ -47,7 +47,7 @@
   },
   {
     "id": 62,
-    "name": "Sunday Parkways North",
+    "name": "Sunday Parkways - North",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -73,7 +73,7 @@
   },
   {
     "id": 170,
-    "name": "Sunday Parkways North",
+    "name": "Sunday Parkways - North",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -133,7 +133,7 @@
   },
   {
     "id": 74,
-    "name": "Sunday Parkways Outer NE ",
+    "name": "Sunday Parkways - Outer NE",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -181,7 +181,7 @@
   },
   {
     "id": 159,
-    "name": "SE Sunday Parkways 2018",
+    "name": "Sunday Parkways - SE 2018",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -238,7 +238,7 @@
   },
   {
     "id": 129,
-    "name": "USS Portland - Temp",
+    "name": "USS Portland",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
@@ -278,7 +278,7 @@
   },
   {
     "id": 80,
-    "name": "Sept Sellwood Sunday Parkways",
+    "name": "Sunday Parkways - Sellwood",
     "network_id": 92,
     "void_fees": false,
     "show_on_map": false,
