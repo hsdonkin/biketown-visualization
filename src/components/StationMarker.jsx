@@ -1,6 +1,6 @@
 import React from 'react';
 import { Marker, Tooltip } from 'react-leaflet';
-const triangleIcon = require('./../assets/triangle.svg');
+const stationIcon = require('./../assets/station-icon.svg');
 
 class StationMarker extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class StationMarker extends React.Component {
         key={station.id}
         position={[station.lat, station.lon]}
         icon={L.icon({
-          iconUrl: triangleIcon,
+          iconUrl: stationIcon,
           iconSize: [20, 20]
         })}
         pane={'shadowPane'}

@@ -21,6 +21,7 @@ import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
 import SpecialArea from './SpecialArea';
+import ToggleBox from './ToggleBox';
 
 // api calls
 const {
@@ -82,9 +83,11 @@ class MapContainer extends React.Component {
 
   handleToggle = target => {
     // flip the show state of whatever the target is to the opposite
-    //
-    targetState = this.state.toggle[target];
-    this.setState({ toggle: { [`${target}`]: !targetState } });
+    const targetState = this.state.toggle[target];
+    this.setState({
+      toggle: { ...this.state.toggle, [`${target}`]: !targetState }
+    });
+    console.log(this.state);
   };
 
   componentDidMount = () => {
@@ -114,6 +117,7 @@ class MapContainer extends React.Component {
   };
 
   componentWillUnmount = () => {
+    // stop memory leaks from unmounted components
     clearInterval(this.apiTimer);
   };
 
@@ -189,40 +193,43 @@ class MapContainer extends React.Component {
     }
 
     return (
-      <Map
-        center={position}
-        zoom={13}
-        minZoom={12}
-        maxZoom={17}
-        style={{
-          height: this.state.windowSize.height - 75,
-          width: this.state.windowSize.width
-        }}
-        ref={ref => (this.map = ref)}
-      >
-        <TileLayer
-          url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
-          attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
-        />
-        {serviceArea}
-        {specialAreas}
-        {stationMarkers}
-        <MarkerClusterGroup
-          spiderLegPolylineOptions={{
-            weight: 0,
-            color: '#222',
-            opacity: 0
+      <React.Fragment>
+        <ToggleBox handleToggle={this.handleToggle} />
+        <Map
+          center={position}
+          zoom={13}
+          minZoom={12}
+          maxZoom={17}
+          style={{
+            height: this.state.windowSize.height - 75,
+            width: this.state.windowSize.width
           }}
-          pane={'markerPane'}
-          polygonOptions={{ weight: 0, opacity: 0, fill: false }}
-          disableClusteringAtZoom={16}
-          zoomToBoundsAtClick={false}
+          ref={ref => (this.map = ref)}
         >
-          {freeBikeMarkers}
-        </MarkerClusterGroup>
+          <TileLayer
+            url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
+            attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+          />
+          {serviceArea}
+          {specialAreas}
+          {stationMarkers}
+          <MarkerClusterGroup
+            spiderLegPolylineOptions={{
+              weight: 0,
+              color: '#222',
+              opacity: 0
+            }}
+            pane={'markerPane'}
+            polygonOptions={{ weight: 0, opacity: 0, fill: false }}
+            disableClusteringAtZoom={16}
+            zoomToBoundsAtClick={false}
+          >
+            {freeBikeMarkers}
+          </MarkerClusterGroup>
 
-        {userPositionMarker}
-      </Map>
+          {userPositionMarker}
+        </Map>
+      </React.Fragment>
     );
   }
 }
