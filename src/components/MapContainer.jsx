@@ -21,7 +21,7 @@ import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
 import SpecialArea from './SpecialArea';
-import ToggleBox from './ToggleBox';
+import Legend from './Legend';
 
 // api calls
 const {
@@ -45,7 +45,7 @@ class MapContainer extends React.Component {
         showBikes: true,
         showStations: true,
         showServiceArea: true,
-        showSpecialAreas: true
+        showSpecialAreas: false
       },
 
       windowSize: { height: 600, width: 1200 },
@@ -83,10 +83,11 @@ class MapContainer extends React.Component {
 
   handleToggle = target => {
     // flip the show state of whatever the target is to the opposite
-    const targetState = this.state.toggle[target];
+    const targetState = JSON.parse(JSON.stringify(this.state.toggle[target]));
     this.setState({
       toggle: { ...this.state.toggle, [`${target}`]: !targetState }
     });
+    this.forceUpdate();
     console.log(this.state);
   };
 
@@ -194,7 +195,7 @@ class MapContainer extends React.Component {
 
     return (
       <React.Fragment>
-        <ToggleBox handleToggle={this.handleToggle} />
+        <Legend handleToggle={this.handleToggle} />
         <Map
           center={position}
           zoom={13}
@@ -202,7 +203,9 @@ class MapContainer extends React.Component {
           maxZoom={17}
           style={{
             height: this.state.windowSize.height - 75,
-            width: this.state.windowSize.width
+            width: this.state.windowSize.width,
+            position: 'relative',
+            zIndex: 0
           }}
           ref={ref => (this.map = ref)}
         >
