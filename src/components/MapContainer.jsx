@@ -135,10 +135,16 @@ class MapContainer extends React.Component {
       });
     }
 
+    const colors = ['#709AFF', '#E794EB', '#E8DC6F', '#91FFAB'];
+    let counter = 0;
     const specialAreas = this.state.specialAreas.map(area => {
-      const colors = ['#709AFF', '#E794EB', '#E8DC6F', '#91FFAB'];
-      const rand = colors[Math.floor(Math.random() * colors.length)];
-      return <SpecialArea area={area} color={rand} />;
+      // cycle through colors when creating special areas
+      const color = colors[counter];
+      counter += 1;
+      if (counter > colors.length - 1) {
+        counter = 0;
+      }
+      return <SpecialArea area={area} color={color} />;
     });
 
     let userPositionMarker;
