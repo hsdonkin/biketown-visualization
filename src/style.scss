@@ -7,9 +7,14 @@ body {
   margin: 0;
 }
 
-h1 {
+.navbar h1 {
   float: right;
   margin-right: 1rem;
+}
+
+.navbar .swoosh-logo {
+  margin-left: 2px;
+  height: 10px;
 }
 
 // styles for marker clusters
