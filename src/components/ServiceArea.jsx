@@ -1,5 +1,5 @@
 import React from 'react';
-import { Polygon } from 'react-leaflet';
+import { Polygon, Polyline } from 'react-leaflet';
 
 const ServiceArea = props => {
   let coordinates = props.coordinates;
@@ -13,7 +13,6 @@ const ServiceArea = props => {
       color={'#FC4C02'}
       fill={false}
       opacity={0.8}
-      pane={'markerPane'}
     />
   );
 };

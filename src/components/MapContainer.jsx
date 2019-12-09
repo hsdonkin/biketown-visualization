@@ -1,6 +1,6 @@
 import React from 'react';
 
-const { serviceArea } = require('./../data').default;
+const { serviceArea, specialAreas } = require('./../data').default;
 
 // map library
 import {
@@ -20,6 +20,8 @@ import SpecialBikeMarker from './SpecialBikeMarker';
 import ServiceArea from './ServiceArea';
 import UserPositionMarker from './UserPositionMarker';
 import StationMarker from './StationMarker';
+import SpecialArea from './SpecialArea';
+import Legend from './Legend';
 
 // api calls
 const {
@@ -38,12 +40,21 @@ class MapContainer extends React.Component {
       stationStatus: [],
       currentPosition: null,
       serviceArea,
+      specialAreas,
+      toggle: {
+        showBikes: true,
+        showStations: true,
+        showServiceArea: true,
+        showSpecialAreas: false
+      },
+
       windowSize: { height: 600, width: 1200 },
       zoomLevel: 13
     };
   }
 
-  componentDidMount = () => {
+  updateStateFromApi = () => {
+    console.log('updating state from API');
     // get current location if possible
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
@@ -53,19 +64,6 @@ class MapContainer extends React.Component {
         }
       });
     });
-
-    // find out what height / width to set the map to
-    if (
-      this.state.windowSize.height != window.innerHeight ||
-      this.state.windowSize.width != window.innerWidth
-    ) {
-      this.setState({
-        windowSize: {
-          height: window.innerHeight,
-          width: window.innerWidth
-        }
-      });
-    }
 
     Promise.all([fetchBikeStatus, fetchStationInformation, fetchStationStatus])
       .then(responses => {
@@ -81,6 +79,47 @@ class MapContainer extends React.Component {
         console.log(this.state);
       })
       .catch(err => this.setState({ loading: false, error: true }));
+  };
+
+  handleToggle = target => {
+    // flip the show state of whatever the target is to the opposite
+    const targetState = JSON.parse(JSON.stringify(this.state.toggle[target]));
+    console.log(target, !targetState);
+    this.setState({
+      toggle: { ...this.state.toggle, [`${target}`]: !targetState }
+    });
+    this.forceUpdate();
+  };
+
+  componentDidMount = () => {
+    /* 
+        find out what height / width to set the map to
+        this is because the canvas element needs a defined height / width
+        before the library runs 
+    */
+    if (
+      this.state.windowSize.height != window.innerHeight ||
+      this.state.windowSize.width != window.innerWidth
+    ) {
+      this.setState({
+        windowSize: {
+          height: window.innerHeight,
+          width: window.innerWidth
+        }
+      });
+    }
+
+    // update state on initial load
+    this.updateStateFromApi();
+    // update the UI once every minute
+    this.apiTimer = setInterval(() => {
+      this.updateStateFromApi();
+    }, 60000);
+  };
+
+  componentWillUnmount = () => {
+    // stop memory leaks from unmounted components
+    clearInterval(this.apiTimer);
   };
 
   render() {
@@ -102,17 +141,46 @@ class MapContainer extends React.Component {
     if (this.state.loading === false && this.state.error === false) {
       const bikeData = this.state.freeBikeStatus.data.bikes;
       const stationData = this.state.stationInformation.data.stations;
-      freeBikeMarkers = bikeData.map(bike => {
-        // find bikes with unique names
-        if (bike.name.toUpperCase().replace('BIKETOWN', '').length > 7) {
-          return <SpecialBikeMarker bike={bike} key={bike.id} />;
-        } else {
-          return <BikeMarker bike={bike} key={bike.id} />;
+      if (this.state.toggle.showBikes === true) {
+        freeBikeMarkers = bikeData.map(bike => {
+          // find bikes with unique names
+          if (bike.name.toUpperCase().replace('BIKETOWN', '').length > 7) {
+            return <SpecialBikeMarker bike={bike} key={bike.id} />;
+          } else {
+            return <BikeMarker bike={bike} key={bike.id} />;
+          }
+        });
+      }
+      if (this.state.toggle.showStations === true) {
+        stationMarkers = stationData.map(station => {
+          return <StationMarker station={station} />;
+        });
+      }
+    }
+
+    const colors = ['#5AFF81', '#E5D330', '#EA54F1', '#3872FF'];
+    let counter = 0;
+    let specialAreas;
+
+    if (this.state.toggle.showSpecialAreas === true) {
+      specialAreas = this.state.specialAreas.map(area => {
+        // cycle through colors when creating special areas
+        const color = colors[counter];
+        counter += 1;
+        if (counter > colors.length - 1) {
+          counter = 0;
         }
+        return <SpecialArea area={area} color={color} />;
       });
-      stationMarkers = stationData.map(station => {
-        return <StationMarker station={station} />;
-      });
+    }
+
+    let serviceArea;
+    if (this.state.toggle.showServiceArea === true) {
+      serviceArea = (
+        <ServiceArea
+          coordinates={this.state.serviceArea.polygon.coordinates[0]}
+        />
+      );
     }
 
     let userPositionMarker;
@@ -126,41 +194,45 @@ class MapContainer extends React.Component {
     }
 
     return (
-      <Map
-        center={position}
-        zoom={13}
-        minZoom={12}
-        maxZoom={17}
-        style={{
-          height: this.state.windowSize.height - 75,
-          width: this.state.windowSize.width
-        }}
-        ref={ref => (this.map = ref)}
-      >
-        <TileLayer
-          url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
-          attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
-        />
-        <ServiceArea
-          coordinates={this.state.serviceArea.polygon.coordinates[0]}
-        />
-        {stationMarkers}
-        <MarkerClusterGroup
-          spiderLegPolylineOptions={{
-            weight: 0,
-            color: '#222',
-            opacity: 0
+      <React.Fragment>
+        <Legend handleToggle={this.handleToggle} />
+        <Map
+          center={position}
+          zoom={13}
+          minZoom={12}
+          maxZoom={17}
+          style={{
+            height: this.state.windowSize.height - 75,
+            width: this.state.windowSize.width,
+            position: 'relative',
+            zIndex: 0
           }}
-          pane={'markerPane'}
-          polygonOptions={{ weight: 0, opacity: 0, fill: false }}
-          disableClusteringAtZoom={16}
-          zoomToBoundsAtClick={false}
+          ref={ref => (this.map = ref)}
         >
-          {freeBikeMarkers}
-        </MarkerClusterGroup>
+          <TileLayer
+            url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
+            attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+          />
+          {serviceArea}
+          {specialAreas}
+          {stationMarkers}
+          <MarkerClusterGroup
+            spiderLegPolylineOptions={{
+              weight: 0,
+              color: '#222',
+              opacity: 0
+            }}
+            pane={'markerPane'}
+            polygonOptions={{ weight: 0, opacity: 0, fill: false }}
+            disableClusteringAtZoom={16}
+            zoomToBoundsAtClick={false}
+          >
+            {freeBikeMarkers}
+          </MarkerClusterGroup>
 
-        {userPositionMarker}
-      </Map>
+          {userPositionMarker}
+        </Map>
+      </React.Fragment>
     );
   }
 }

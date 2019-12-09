@@ -15,7 +15,13 @@ const SpecialBikeMarker = props => {
       })}
       position={[bike.lat, bike.lon]}
     >
-      <Tooltip className={'marker-tooltip'}>
+      <Tooltip
+        className={'marker-tooltip'}
+        offset={L.point({
+          x: 0,
+          y: -10
+        })}
+      >
         <span>{bike.name}</span>
       </Tooltip>
     </Marker>
