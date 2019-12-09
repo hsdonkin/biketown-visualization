@@ -84,11 +84,11 @@ class MapContainer extends React.Component {
   handleToggle = target => {
     // flip the show state of whatever the target is to the opposite
     const targetState = JSON.parse(JSON.stringify(this.state.toggle[target]));
+    console.log(target, !targetState);
     this.setState({
       toggle: { ...this.state.toggle, [`${target}`]: !targetState }
     });
     this.forceUpdate();
-    console.log(this.state);
   };
 
   componentDidMount = () => {

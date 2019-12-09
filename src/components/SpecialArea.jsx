@@ -9,8 +9,6 @@ const SpecialArea = props => {
     coordinate => (coordinate = coordinate.reverse())
   );
 
-  console.log(area.polygon);
-
   return (
     <Polygon
       positions={area.polygon.coordinates}
