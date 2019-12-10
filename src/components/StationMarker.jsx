@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker, Tooltip } from 'react-leaflet';
+import { Marker, Tooltip, Popup } from 'react-leaflet';
 const stationIcon = require('./../assets/station-icon.svg');
 
 class StationMarker extends React.Component {
@@ -12,6 +12,7 @@ class StationMarker extends React.Component {
 
   render() {
     const { station } = this.props;
+    const { status } = this.props;
     return (
       <Marker
         key={station.id}
@@ -25,6 +26,12 @@ class StationMarker extends React.Component {
         <Tooltip className={'marker-tooltip'}>
           <span>{station.name}</span>
         </Tooltip>
+        <Popup>
+          <h3>{station.name}</h3>
+          <hr />
+          <p>Bikes Available: {status.num_bikes_available}</p>
+          <p>Racks Available: {status.num_docks_available}</p>
+        </Popup>
       </Marker>
     );
   }

@@ -149,6 +149,7 @@ class MapContainer extends React.Component {
     if (this.state.loading === false && this.state.error === false) {
       const bikeData = this.state.freeBikeStatus.data.bikes;
       const stationData = this.state.stationInformation.data.stations;
+      const stationStatus = this.state.stationStatus.data.stations;
       if (this.state.toggle.showBikes === true) {
         freeBikeMarkers = bikeData.map(bike => {
           // find bikes with unique names
@@ -160,8 +161,10 @@ class MapContainer extends React.Component {
         });
       }
       if (this.state.toggle.showStations === true) {
-        stationMarkers = stationData.map(station => {
-          return <StationMarker station={station} />;
+        stationMarkers = stationData.map((station, index) => {
+          return (
+            <StationMarker station={station} status={stationStatus[index]} />
+          );
         });
       }
     }
@@ -241,9 +244,7 @@ class MapContainer extends React.Component {
             {freeBikeMarkers /* conditional rendering for API*/}
           </MarkerClusterGroup>
 
-          {
-            userPositionMarker /* conditional rendering for browser geolocation*/
-          }
+          {userPositionMarker /* conditional rendering for geolocation*/}
         </Map>
       </React.Fragment>
     );
