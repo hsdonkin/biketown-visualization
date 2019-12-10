@@ -97,6 +97,7 @@ class MapContainer extends React.Component {
         this is because the canvas element needs a defined height / width
         before the library runs 
     */
+
     if (
       this.state.windowSize.height != window.innerHeight ||
       this.state.windowSize.width != window.innerWidth
@@ -124,7 +125,14 @@ class MapContainer extends React.Component {
 
   render() {
     // default map position
-    const position = [45.53, -122.66];
+    let position = [45.53, -122.63];
+    let zoom = 13;
+    // if (window.innerHeight < 600) {
+    //   position = [45.519, -122.639];
+    //   zoom = 14;
+    // }
+
+    console.log(position);
 
     // handle window resize
     window.onresize = e => {
@@ -193,12 +201,13 @@ class MapContainer extends React.Component {
       );
     }
 
+    console.log('this is state in render', this.state);
     return (
       <React.Fragment>
         <Legend handleToggle={this.handleToggle} />
         <Map
           center={position}
-          zoom={13}
+          zoom={zoom}
           minZoom={12}
           maxZoom={17}
           style={{
@@ -208,6 +217,7 @@ class MapContainer extends React.Component {
             zIndex: 0
           }}
           ref={ref => (this.map = ref)}
+          onclick={event => console.log(event)}
         >
           <TileLayer
             url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
