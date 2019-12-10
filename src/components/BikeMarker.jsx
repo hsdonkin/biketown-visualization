@@ -34,7 +34,7 @@ const BikeMarker = props => {
       >
         <span>{bike.name}</span>
       </Tooltip>
-      <Popup>
+      <Popup className="bike-popup">
         <h3>{bike.name}</h3>
         <hr />
         <div className="popup-img-wrapper">
