@@ -53,7 +53,7 @@ const BikeMarker = props => {
         <div className="popup-button-wrapper">
           <a
             className="popup-button"
-            href="https://www.biketownpdx.com/how-it-works/meet-the-bike"
+            href="https://www.biketownpdx.com/how-it-works"
           >
             RENT
           </a>

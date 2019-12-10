@@ -217,7 +217,7 @@ div.leaflet-top.leaflet-left {
 //   width: 100%;
 // }
 
-.bike-popup.leaflet-popup-content-wrapper {
+.leaflet-popup-content-wrapper {
   width: 300px;
   min-height: 300px;
 }
@@ -232,6 +232,15 @@ img.popup-hero {
   border-radius: 10px;
 }
 
+.bike-popup.design-bike-popup
+  .leaflet-popup-content-wrapper
+  .popup-img-wrapper
+  img.popup-hero {
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
+}
+
 img.popup-secondary {
   height: 55px;
   margin: 0;
@@ -241,6 +250,15 @@ img.popup-secondary {
   box-sizing: border-box;
   border: 1px solid gray;
   border-radius: 10px;
+  clear: right;
+}
+
+.leaflet-popup-content-wrapper .img-wrapper {
+  display: block;
+}
+
+.leaflet-popup-content-wrapper .popup-text {
+  display: block;
 }
 
 .leaflet-popup-content-wrapper h3 {
@@ -255,11 +273,13 @@ img.popup-secondary {
 
 .leaflet-popup-content-wrapper p {
   margin-left: 10px;
+  clear: left;
 }
 
 .popup-button-wrapper {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 a.popup-button {
