@@ -13,6 +13,19 @@ class StationMarker extends React.Component {
   render() {
     const { station } = this.props;
     const { status } = this.props;
+    // community corral name styling for popup
+    let nameHeading;
+    if (station.name.includes('Community Corral')) {
+      nameHeading = (
+        <React.Fragment>
+          <h3>{station.name.replace('- Community Corral', '')}</h3>
+          <h4>Community Corral</h4>
+        </React.Fragment>
+      );
+    } else {
+      nameHeading = <h3>{station.name}</h3>;
+    }
+
     return (
       <Marker
         key={station.id}
@@ -26,8 +39,8 @@ class StationMarker extends React.Component {
         <Tooltip className={'marker-tooltip'}>
           <span>{station.name}</span>
         </Tooltip>
-        <Popup>
-          <h3>{station.name}</h3>
+        <Popup className="station-popup">
+          {nameHeading}
           <hr />
           <p>Bikes Available: {status.num_bikes_available}</p>
           <p>Racks Available: {status.num_docks_available}</p>

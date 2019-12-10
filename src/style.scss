@@ -46,8 +46,19 @@ body {
 }
 
 .marker-tooltip {
-  background-color: rgba(252, 76, 2, 1);
+  border: none;
+  background-color: rgba(57, 55, 55, 0.8);
+  border-radius: 5px;
+  padding: 5px;
   color: white;
+}
+
+.leaflet-tooltip-right:before {
+  border-right-color: rgba(57, 55, 55, 0.8);
+}
+
+.leaflet-tooltip-left:before {
+  border-left-color: rgba(57, 55, 55, 0.8);
 }
 
 .marker-tooltip span {
@@ -263,6 +274,7 @@ img.popup-secondary {
 
 .leaflet-popup-content-wrapper h3 {
   font-weight: 500;
+  margin-top: 0;
   margin-left: 10px;
   margin-bottom: 5px;
 }
@@ -274,6 +286,19 @@ img.popup-secondary {
 .leaflet-popup-content-wrapper p {
   margin-left: 10px;
   clear: left;
+}
+
+.station-popup .leaflet-popup-content-wrapper h3 {
+  font-weight: 500;
+  margin-top: 0;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.station-popup .leaflet-popup-content-wrapper h4 {
+  font-weight: 500;
+  margin: 0;
+  margin-left: 10px;
 }
 
 .popup-button-wrapper {
