@@ -115,7 +115,7 @@ class MapContainer extends React.Component {
     // update the UI once every minute
     this.apiTimer = setInterval(() => {
       this.updateStateFromApi();
-    }, 60000);
+    }, 120000);
   };
 
   componentWillUnmount = () => {

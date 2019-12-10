@@ -1,6 +1,8 @@
 import React from 'react';
 import { Marker, Tooltip, Popup } from 'react-leaflet';
 const stationIcon = require('./../assets/station-icon.svg');
+const swoosh = require('./../assets/swoosh.svg');
+console.log(swoosh);
 
 class StationMarker extends React.Component {
   constructor(props) {
@@ -23,7 +25,19 @@ class StationMarker extends React.Component {
         </React.Fragment>
       );
     } else {
-      nameHeading = <h3>{station.name}</h3>;
+      nameHeading = (
+        <React.Fragment>
+          <h3>{station.name}</h3>
+          <h4>
+            BIKETOWN &nbsp;
+            <img
+              src={swoosh}
+              style={{ height: '0.4rem', filter: 'invert(100%)' }}
+            />
+            &nbsp; Station
+          </h4>
+        </React.Fragment>
+      );
     }
 
     return (
