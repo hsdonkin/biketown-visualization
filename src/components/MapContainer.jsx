@@ -223,9 +223,10 @@ class MapContainer extends React.Component {
             url="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
             attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
           />
+
           {serviceArea}
           {specialAreas}
-          {stationMarkers}
+          {stationMarkers /* conditional rendering for API*/}
           <MarkerClusterGroup
             spiderLegPolylineOptions={{
               weight: 0,
@@ -237,10 +238,12 @@ class MapContainer extends React.Component {
             disableClusteringAtZoom={16}
             zoomToBoundsAtClick={false}
           >
-            {freeBikeMarkers}
+            {freeBikeMarkers /* conditional rendering for API*/}
           </MarkerClusterGroup>
 
-          {userPositionMarker}
+          {
+            userPositionMarker /* conditional rendering for browser geolocation*/
+          }
         </Map>
       </React.Fragment>
     );
