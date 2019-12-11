@@ -281,6 +281,7 @@ img.popup-secondary {
 
 .leaflet-popup-content-wrapper hr {
   width: 90%;
+  margin-left: 10px;
 }
 
 .leaflet-popup-content-wrapper p {
@@ -303,6 +304,7 @@ img.popup-secondary {
 }
 
 .station-popup .status-icon-wrapper {
+  margin-top: 10px;
   display: flex;
   justify-content: space-around;
 }
