@@ -1,6 +1,8 @@
 import React from 'react';
 import { Marker, Tooltip, Popup } from 'react-leaflet';
 const stationIcon = require('./../assets/station-icon.svg');
+const bikeIcon = require('./../assets/bike-icon.svg');
+const rackIcon = require('./../assets/rack-icon.svg');
 const swoosh = require('./../assets/swoosh.svg');
 console.log(swoosh);
 
@@ -56,8 +58,16 @@ class StationMarker extends React.Component {
         <Popup className="station-popup">
           {nameHeading}
           <hr />
-          <p>Bikes Available: {status.num_bikes_available}</p>
-          <p>Racks Available: {status.num_docks_available}</p>
+          <div className="status-icon-wrapper">
+            <span>
+              <img src={bikeIcon} />
+              <span>{status.num_bikes_available}</span>
+            </span>
+            <span>
+              <img src={rackIcon} />
+              <span>{status.num_docks_available}</span>
+            </span>
+          </div>
         </Popup>
       </Marker>
     );

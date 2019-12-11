@@ -289,6 +289,7 @@ img.popup-secondary {
 }
 
 .station-popup .leaflet-popup-content-wrapper h3 {
+  max-width: 180px;
   font-weight: 500;
   margin-top: 0;
   margin-left: 10px;
@@ -299,6 +300,19 @@ img.popup-secondary {
   font-weight: 500;
   margin: 0;
   margin-left: 10px;
+}
+
+.station-popup .status-icon-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.station-popup .status-icon-wrapper img {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.station-popup .status-icon-wrapper span span {
 }
 
 .popup-button-wrapper {
