@@ -22,7 +22,11 @@ class StationMarker extends React.Component {
     if (station.name.includes('Community Corral')) {
       nameHeading = (
         <React.Fragment>
-          <h3>{station.name.replace('- Community Corral', '')}</h3>
+          <h3>
+            {station.name
+              .replace('- Community Corral', '')
+              .replace('Community Corral', '')}
+          </h3>
           <h4>Community Corral</h4>
         </React.Fragment>
       );
